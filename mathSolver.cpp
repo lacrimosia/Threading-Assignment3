@@ -26,7 +26,7 @@ void* evaluate(void* vPtr)
     NodeBuffer* nodeBufferPtr = (NodeBuffer*)vPtr;
 
     // the node pointer variable
-    Node* nodePtr = new Node();
+    Node* nodePtr;
 
     //  YOUR CODE HERE
     int probs = NUM_PROBLEMS / 2;
@@ -68,9 +68,9 @@ int main(int argc,
     // run node NUM_PROBLEMS times
     for(int i=0; i<NUM_PROBLEMS; i++){
         //make the nodes up until NUM_PROBLEMS
-        makeNode();
         // Put the return address into node buffers
-        nodeBuffer->putIn((void*)&nodeBuffer);
+        Node* ptr = makeNode();
+        nodeBuffer->putIn(*ptr);
     }
 
     // wait until they finish
