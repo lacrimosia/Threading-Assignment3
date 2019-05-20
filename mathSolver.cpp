@@ -16,19 +16,27 @@
 //  $ g++ mathSolver.cpp -o mathSolver -lpthread -g
 //
 
+// Shatilla Prayer
+// Assignment 3
+
 #include    "./mathSolverHeader.h"
 
 void* evaluate(void* vPtr)
 {
     NodeBuffer* nodeBufferPtr = (NodeBuffer*)vPtr;
 
+    // the node pointer variable
+    Node* nodePtr = new Node();
+
     //  YOUR CODE HERE
-    for(int i = 0;  i < NUM_PROBLEMS / 2;  i++){
-        nodeBufferPtr->pullOut();
+    int probs = NUM_PROBLEMS / 2;
+    for(int i = 0;  i < probs;  i++){
+        nodePtr = nodeBufferPtr->pullOut();
 
         // print value
-        printf("number %d \n",nodePtr->toString().c_str());
-        printf("Node value %d \n",nodePtr->eval());
+        printf("Iteration num: %d \n",i);
+        printf("Node expression: %d \n",nodePtr->toString().c_str());
+        printf("Node eval: %d \n",nodePtr->eval());
 
         // delete pointer
         delete nodePtr;
@@ -48,14 +56,12 @@ int main(int argc,
     NodeBuffer nodeBuffer;
     pthread_t consumer0;
     pthread_t consumer1;
-    pthread_mutex_t lock;
     int toReturn = EXIT_SUCCESS;
 
     srand((argc < 2) ? getpid() : atoi(argv[1]));
 
     //  YOUR CODE HERE
     // Created child threads
-    pthread_mutex_init(&lock,NULL);
     pthread_create(&consumer0,NULL,evaluate,(void*)&nodeBuffer);
     pthread_create(&consumer1,NULL,evaluate,(void*)&nodeBuffer);
 
@@ -64,17 +70,12 @@ int main(int argc,
         //make the nodes up until NUM_PROBLEMS
         makeNode();
         // Put the return address into node buffers
-        nodeBuffer->putIn(&makeNode());
+        nodeBuffer->putIn((void*)&nodeBuffer);
     }
 
     // wait until they finish
-    void *intPtr;
-    pthread_join(&consumer0, (void **)&intPtr);
-
-    void *intPtr2;
-    pthread_join(&consumer1, (void **)&intPtr2);
-
-    pthread_mutex_destroy(&lock);
+    pthread_join(consumer0, NULL);
+    pthread_join(consumer1, NULL);
 
     return (toReturn);
 }
