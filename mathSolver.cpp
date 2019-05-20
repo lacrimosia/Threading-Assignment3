@@ -70,7 +70,7 @@ int main(int argc,
         //make the nodes up until NUM_PROBLEMS
         // Put the return address into node buffers
         Node* ptr = makeNode();
-        nodeBuffer->putIn(*ptr);
+        nodeBuffer->putIn(ptr);
     }
 
     // wait until they finish

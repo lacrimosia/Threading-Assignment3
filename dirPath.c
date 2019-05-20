@@ -52,7 +52,15 @@ const char* getPathText(int argc,
     int textSpaceLen)
 {
     //  YOUR CODE HERE
-    
+
+    do{
+        printf("Please enter a path: ");
+        
+    }while(argc != 1);
+
+    *textSpace = fgets(argv[1],textSpaceLen, stdin);
+
+    return textSpace;
 }
 
 //  PURPOSE:  To create and return a linked list of heap-allocated
