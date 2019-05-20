@@ -16,14 +16,25 @@
 //  $ g++ mathSolver.cpp -o mathSolver -lpthread -g
 //
 
-#include "mathSolverHeader.h"
-#include "pthread.h"
+#include    "./mathSolverHeader.h"
 
 void* evaluate(void* vPtr)
 {
     NodeBuffer* nodeBufferPtr = (NodeBuffer*)vPtr;
+    Node* nodePtr;
 
     //  YOUR CODE HERE
+    while(NUM_PROBLEMS/2){
+        *nodePtr = *nodeBufferPtr->pullOut();
+
+        // print value
+        printf("number %d \n",nodePtr->toString().c_str());
+        printf("Node value %d \n",nodePtr->eval());
+
+        // delete pointer
+        delete nodePtr;
+    }
+    return(NULL);
 }
 
 //  PURPOSE:  To return a randomly generated Node.
@@ -46,6 +57,21 @@ int main(int argc,
     // Created child threads
     pthread_create(&consumer0,NULL,evaluate,(void*)&nodeBuffer);
     pthread_create(&consumer1,NULL,evaluate,(void*)&nodeBuffer);
+
+    // run node NUM_PROBLEMS times
+    for(int i=0; i<NUM_PROBLEMS; i++){
+        //make the nodes up until NUM_PROBLEMS
+        makeNode();
+        // Put the return address into node buffers
+        nodeBuffer = (Node*)&makeNode();
+    }
+
+    // wait until they finish
+    void *intPtr;
+    pthread_join(&consumer0, (void **)&intPtr);
+
+    void *intPtr2;
+    pthread_join(&consumer1, (void **)&intPtr2);
 
     return (toReturn);
 }
