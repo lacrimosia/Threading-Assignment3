@@ -43,6 +43,9 @@ int main(int argc,
     srand((argc < 2) ? getpid() : atoi(argv[1]));
 
     //  YOUR CODE HERE
+    // Created child threads
+    pthread_create(&consumer0,NULL,evaluate,(void*)&nodeBuffer);
+    pthread_create(&consumer1,NULL,evaluate,(void*)&nodeBuffer);
 
     return (toReturn);
 }
