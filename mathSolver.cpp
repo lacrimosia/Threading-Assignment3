@@ -35,8 +35,8 @@ void* evaluate(void* vPtr)
 
         // print value
         printf("Iteration num: %d \n",i);
-        printf("Node expression: %d \n",nodePtr->toString().c_str());
-        printf("Node eval: %d \n",nodePtr->eval());
+        printf("Node expression: %s \n",nodePtr->toString().c_str());
+        printf("Node eval: %g \n",nodePtr->eval());
 
         // delete pointer
         delete nodePtr;
@@ -70,7 +70,7 @@ int main(int argc,
         //make the nodes up until NUM_PROBLEMS
         // Put the return address into node buffers
         Node* ptr = makeNode();
-        nodeBuffer->putIn(ptr);
+        nodeBuffer.putIn(ptr);
     }
 
     // wait until they finish

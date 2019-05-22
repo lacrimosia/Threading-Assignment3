@@ -58,8 +58,6 @@ public:
         // added
         pthread_mutex_lock(&lockIt_);
         while (getNumItems() >= SIZE) {
-            printf("Full!  Waiting!\n");
-            usleep(10 + rand() % 10);
             pthread_cond_wait(&notFull_,&lockIt_);
         }
 
@@ -80,8 +78,6 @@ public:
         // added
         pthread_mutex_lock(&lockIt_);
         while (getNumItems() <= 0) {
-            printf("Empty!  Waiting!\n");
-            usleep(10 + rand() % 10);
             pthread_cond_wait(&notEmpty_,&lockIt_);
         }
 
