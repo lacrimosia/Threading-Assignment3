@@ -19,24 +19,24 @@
 // Shatilla Prayer
 // Assignment 3
 
-#include    "./mathSolverHeader.h"
+#include    "mathSolverHeader.h"
 
 void* evaluate(void* vPtr)
 {
     NodeBuffer* nodeBufferPtr = (NodeBuffer*)vPtr;
 
-    // the node pointer variable
-    Node* nodePtr;
+    
 
     //  YOUR CODE HERE
     int probs = NUM_PROBLEMS / 2;
     for(int i = 0;  i < probs;  i++){
+        // the node pointer variable
+        Node* nodePtr;
         nodePtr = nodeBufferPtr->pullOut();
 
         // print value
-        printf("Iteration num: %d \n",i);
-        printf("Node expression: %s \n",nodePtr->toString().c_str());
-        printf("Node eval: %g \n",nodePtr->eval());
+       // printf("iteration number: %s \n", nodePtr->toString().str());
+        printf("Node eval: %g \n", nodePtr->eval());
 
         // delete pointer
         delete nodePtr;

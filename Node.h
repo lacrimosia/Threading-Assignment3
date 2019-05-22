@@ -1,14 +1,14 @@
 /*-------------------------------------------------------------------------*
- *---									---*
- *---		Node.h							---*
- *---									---*
- *---	    This file defines classes for nodes used to represent math 	---*
- *---	expressions.							---*
- *---									---*
- *---	----	----	----	----	----	----	----	----	---*
- *---									---*
- *---	Version 1a		2019 May 6		Joseph Phillips	---*
- *---									---*
+ *---                                   ---*
+ *---       Node.h                          ---*
+ *---                                   ---*
+ *---       This file defines classes for nodes used to represent math  ---*
+ *---   expressions.                            ---*
+ *---                                   ---*
+ *---   ----    ----    ----    ----    ----    ----    ----    ----    ---*
+ *---                                   ---*
+ *---   Version 1a      2019 May 6      Joseph Phillips ---*
+ *---                                   ---*
  *-------------------------------------------------------------------------*/
 
 //  PURPOSE:  To distinguish among the mathematical operators.
