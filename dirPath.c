@@ -35,8 +35,7 @@ struct PathName {
 
 //  PURPOSE:  To return a non-zero value if 'c' is legal in a restricted Unix
 //  directory entry name, or '0' otherwise.
-int isLegalDirEntryChar(char c)
-{
+int isLegalDirEntryChar(char c){
     return (isalnum(c) || (c == '-') || (c == '_') || (c == '.'));
 }
 
@@ -46,20 +45,14 @@ int isLegalDirEntryChar(char c)
 //  (2) enters it into 'textSpace' of length 'textSpaceLen',
 //  (3) removes the ending '\n' from 'textSpace',
 //  (4) and returns 'textSpace'.
-const char* getPathText(int argc,
-    char* argv[],
-    char* textSpace,
-    int textSpaceLen)
-{
+const char* getPathText(int argc, char* argv[], char* textSpace, int textSpaceLen){
     //  YOUR CODE HERE
-
-    do{
+    if(argc < 2){
         printf("Please enter a path: ");
-        
-    }while(argc != 1);
+        fgets(textSpace,textSpaceLen,stdin);
+    }
 
-    *textSpace = fgets(argv[1],textSpaceLen, stdin);
-
+    printf("%s", textSpace);
     return textSpace;
 }
 
@@ -81,9 +74,7 @@ const char* getPathText(int argc,
 //  'isLegalDirEntryChar()' then it does:
 //    fprintf(stderr,"Illegal character %c in path!\n",*linePtr);
 //    exit(EXIT_FAILURE);
-struct DirEntryName*
-parseRestOfPath(const char* linePtr)
-{
+struct DirEntryName* parseRestOfPath(const char* linePtr){
     //  I.  Application validity check:
     if (linePtr == NULL) {
         fprintf(stderr, "NULL ptr to parseRestOfPath()\n");
@@ -91,12 +82,18 @@ parseRestOfPath(const char* linePtr)
     }
 
     //  II.  Return value:
+    if(*linePtr == 0){
+        return NULL;
+    }
     //  II.A.  Handle when at end of 'linePtr':
     //  YOUR CODE HERE
+
 
     //  II.B.  Handle when 'linePtr' points to '/',
     //       and thus a missing directory name:
     //  YOUR CODE HERE
+    if(*linePtr == '/')
+        fprintf(stderr,"Missing directory name!\n");
 
     //  II.C.  Get entry name:
     char* entryNamePtr = linePtr;
@@ -108,25 +105,34 @@ parseRestOfPath(const char* linePtr)
     //  II.C.2.  If you have stopped because of anything other than '/' or '\0'
     //         then the user gave you an illegal char.  Give error message here:
     //  YOUR CODE HERE
+    if(*linePtr != '/' || *linePtr != '\0'){
+        fprintf(stderr,"Illegal character %c in path!\n",*linePtr);
+        exit(EXIT_FAILURE);
+    }
 
     //  II.C.3.  Allocate a new 'struct DirEntryName*' pointer here.
     //         Allocate memory for its name and copy entry name into that mem:
     //  YOUR CODE HERE
+       struct DirEntryName* paths = (struct DirEntryName*)malloc(sizeof(struct DirEntryName));
 
     //  II.C.4.  If 'linePtr' encountered '/' it should get the value for
     //         'nextPtr_' by recursion.  If it points to '\0' it should set
     //         'nextPtr_' to 'NULL'.
     //  YOUR CODE HERE
-
+        while (paths != NULL){ 
+            if(*linePtr == '\0'){
+                nextPtr_ = NULL;
+            } 
+            paths = paths->nextPtr_; 
+        } 
     //  III.  Finished:
     //  RETURN YOUR 'struct DirEntryName*' POINTER HERE
+       return paths;
 }
 
 //  PURPOSE:  To return the address of a heap-allocated 'struct PathName'
 //  instance that encodes the path given by 'linePtr'.
-struct PathName*
-getPath(const char* linePtr)
-{
+struct PathName* getPath(const char* linePtr){
     //  I.  Application validity check:
     if (linePtr == NULL) {
         fprintf(stderr, "NULL ptr to getPath()!\n");
@@ -135,8 +141,7 @@ getPath(const char* linePtr)
 
     //  II.  Create 'struct PathName' object:
     //  II.A.  Obtain heap memory:
-    struct PathName* toReturn = (struct PathName*)
-        malloc(sizeof(struct PathName));
+    struct PathName* toReturn = (struct PathName*)malloc(sizeof(struct PathName));
 
     //  II.B.  Initialize flags of '*toReturn':
     toReturn->isRoot_ = 0;
@@ -222,6 +227,9 @@ void destroy(struct PathName*
         pathNamePtr)
 {
     //  YOUR CODE HERE
+    free(name_);
+    free(nextPtr_);
+    free(pathNamePtr);   
 }
 
 //  PURPOSE:  To do the high level work of this program.  'argc' tells the
