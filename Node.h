@@ -11,6 +11,9 @@
  *---                                   ---*
  *-------------------------------------------------------------------------*/
 
+// Shatilla Prayer
+// Assignment #3
+
 //  PURPOSE:  To distinguish among the mathematical operators.
 typedef enum {
     ADD_OP,

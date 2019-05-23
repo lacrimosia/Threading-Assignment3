@@ -11,6 +11,9 @@
  *---									---*
  *-------------------------------------------------------------------------*/
 
+// Shatilla Prayer
+// Assignment #3
+
 #include	<cstdlib>
 #include	<cstdio>
 #include	<cstring>

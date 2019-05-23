@@ -25,8 +25,6 @@ void* evaluate(void* vPtr)
 {
     NodeBuffer* nodeBufferPtr = (NodeBuffer*)vPtr;
 
-    
-
     //  YOUR CODE HERE
     int probs = NUM_PROBLEMS / 2;
     for(int i = 0;  i < probs;  i++){
@@ -35,8 +33,10 @@ void* evaluate(void* vPtr)
         nodePtr = nodeBufferPtr->pullOut();
 
         // print value
-       // printf("iteration number: %s \n", nodePtr->toString().str());
-        printf("Node eval: %g \n", nodePtr->eval());
+        // iteration num
+        printf("Made %d \n", i);
+        // node expression + node eval
+        printf("%s = %d \n", nodePtr->toString().c_str(), nodePtr->eval());
 
         // delete pointer
         delete nodePtr;
